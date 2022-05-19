@@ -1,0 +1,14 @@
+.edge {
+	position: relative;
+	margin: 0 20px;
+	border: 40px solid #d9c1a7;
+	
+	.board {
+		width: calc(64px * 8 + 12px);
+		height: calc(64px * 8 + 12px);
+		display: flex;
+		flex-wrap: wrap;
+		border: 6px solid darkcyan;
+	}
+}
+

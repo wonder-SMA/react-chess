@@ -1,0 +1,16 @@
+.lost {
+	height: 663px;
+	padding: 10px;
+	background-color: lightgray;
+	
+	div {
+		display: flex;
+		justify-content: space-between;
+		align-items: end;
+		
+		img {
+			width: 36px;
+			height: 36px;
+		}
+	}
+}

@@ -1,6 +1,8 @@
 import React from 'react';
+import cn from 'classnames';
 
 import CellModel from '../../models/Cell';
+import classes from './Cell.module.scss';
 
 type CellTypes = {
   cell: CellModel;
@@ -9,12 +11,13 @@ type CellTypes = {
 }
 
 const Cell: React.FC<CellTypes> = ({ cell, onClick, selected }) => {
-  const mainClass = `
-    cell
-    ${cell.color}
-    ${selected ? 'selected' : ''}
-    ${cell.available ? 'available' : ''}
-  `;
+
+  const mainClass = cn(classes.cell, {
+    [classes.black]: cell.color == 'Black',
+    [classes.white]: cell.color === 'White',
+    [classes.selected]: selected,
+    [classes.available]: cell.available,
+  });
 
   return (
     <div

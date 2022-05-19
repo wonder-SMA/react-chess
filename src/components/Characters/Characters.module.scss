@@ -1,0 +1,18 @@
+.abc {
+	width: 518px;
+	position: absolute;
+	display: flex;
+	justify-content: space-around;
+	
+	span {
+		font-size: 18px;
+	}
+}
+
+.top {
+	top: -29px;
+}
+
+.bottom {
+	bottom: -29px;
+}

@@ -1,0 +1,20 @@
+.num {
+	height: 518px;
+	position: absolute;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column-reverse;
+	
+	span {
+		font-size: 18px;
+	}
+}
+
+.right {
+	right: -23px;
+}
+
+.left {
+	top: 0;
+	left: -23px;
+}

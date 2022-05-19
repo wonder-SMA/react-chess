@@ -1,5 +1,7 @@
 import React from 'react';
+
 import FigureModel from '../../models/Figure';
+import classes from './LostFigures.module.scss';
 
 type LostFiguresTypes = {
   title: string;
@@ -8,7 +10,7 @@ type LostFiguresTypes = {
 
 const LostFigures: React.FC<LostFiguresTypes> = ({ title, figures }) => {
   return (
-    <div className="lost">
+    <div className={classes.lost}>
       <h3>{title}</h3>
       {figures.map(((figure, index) =>
           <div key={figure.id}>

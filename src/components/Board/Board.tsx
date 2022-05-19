@@ -6,6 +6,7 @@ import PlayerModel from '../../models/Player';
 import Cell from '../Cell';
 import Characters from '../Characters';
 import Numbers from '../Numbers';
+import classes from './Board.module.scss';
 
 type BoardTypes = {
   board: BoardModel;
@@ -13,7 +14,6 @@ type BoardTypes = {
   swapPlayer: () => void;
   currentPlayer: PlayerModel | null;
 }
-
 
 const Board: React.FC<BoardTypes> = ({ board, setBoard, swapPlayer, currentPlayer }) => {
   const [selectedCell, setSelectedCell] = useState<CellModel | null>(null);
@@ -43,10 +43,10 @@ const Board: React.FC<BoardTypes> = ({ board, setBoard, swapPlayer, currentPlaye
   return (
     <div>
       <h3>Текущий игрок: {currentPlayer?.color}</h3>
-      <div className="edge">
+      <div className={classes.edge}>
         <Characters position="top" />
         <Numbers position="right" />
-        <div className="board">
+        <div className={classes.board}>
           {board.cells.map((row, index) =>
             <React.Fragment key={index}>
               {row.map(cell =>
