@@ -1,60 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { observer } from 'mobx-react-lite';
 
-import BoardModel from '../../models/Board';
+import { StoreContext } from '../../index';
 import CellModel from '../../models/Cell';
-import PlayerModel from '../../models/Player';
 import Cell from '../Cell';
 import Characters from '../Characters';
 import Numbers from '../Numbers';
 import classes from './Board.module.scss';
 
 type BoardTypes = {
-  board: BoardModel;
-  setBoard: (board: BoardModel) => void;
   swapPlayer: () => void;
-  currentPlayer: PlayerModel | null;
 }
 
-const Board: React.FC<BoardTypes> = ({ board, setBoard, swapPlayer, currentPlayer }) => {
-  const [selectedCell, setSelectedCell] = useState<CellModel | null>(null);
+const Board: React.FC<BoardTypes> = observer(({ swapPlayer }) => {
+  const store = useContext(StoreContext);
 
   useEffect(() => {
-    board.highlightCells(selectedCell);
+    store.board.highlightCells(store.selectedCell);
     updateBoard();
-  }, [selectedCell]);
+  }, [store.selectedCell]);
 
   function onClick(cell: CellModel) {
-    if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
-      selectedCell.moveFigure(cell);
-      setSelectedCell(null);
+    if (store.selectedCell && store.selectedCell !== cell && store.selectedCell.figure?.canMove(cell)) {
+      store.selectedCell.moveFigure(cell);
+      store.setSelectedCell(null);
       swapPlayer();
     } else {
-      if (cell.figure?.color === currentPlayer?.color) {
-        setSelectedCell(selectedCell === cell ? null : cell);
+      if (cell.figure?.color === store.currentPlayer?.color) {
+        store.setSelectedCell(store.selectedCell === cell ? null : cell);
       }
     }
   }
 
   function updateBoard() {
-    const newBoard = board.getCopyBoard();
-    setBoard(newBoard);
+    const newBoard = store.board.getCopyBoard();
+    store.setBoard(newBoard);
   }
 
   return (
     <div>
-      <h3>Текущий игрок: {currentPlayer?.color}</h3>
+      <h3>Current player: {store.currentPlayer?.color}</h3>
       <div className={classes.edge}>
         <Characters position="top" />
         <Numbers position="right" />
         <div className={classes.board}>
-          {board.cells.map((row, index) =>
+          {store.board.cells.map((row, index) =>
             <React.Fragment key={index}>
               {row.map(cell =>
                 <Cell
                   key={cell.id}
                   cell={cell}
                   onClick={onClick}
-                  selected={cell.x === selectedCell?.x && cell.y === selectedCell?.y}
                 />
               )}
             </React.Fragment>
@@ -65,6 +61,6 @@ const Board: React.FC<BoardTypes> = ({ board, setBoard, swapPlayer, currentPlaye
       </div>
     </div>
   );
-};
+});
 
 export default Board;

@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { observer } from 'mobx-react-lite';
 
 import './App.scss';
 import Board from './components/Board';
 import LostFigures from './components/LostFigures';
+import Timer from './components/Timer';
+import { StoreContext } from './index';
 import BoardModel from './models/Board';
 import { Colors } from './models/Colors';
-import PlayerModel from './models/Player';
 
-
-const App: React.FC = () => {
-  const [board, setBoard] = useState(new BoardModel());
-  const [whitePlayer, setWhitePlayer] = useState(new PlayerModel(Colors.WHITE));
-  const [blackPlayer, setBlackPlayer] = useState(new PlayerModel(Colors.BLACK));
-  const [currentPlayer, setCurrentPlayer] = useState<PlayerModel | null>(null);
+const App: React.FC = observer(() => {
+  const store = useContext(StoreContext);
 
   useEffect(() => {
       restart();
@@ -23,32 +21,34 @@ const App: React.FC = () => {
     const newBoard = new BoardModel();
     newBoard.initCells();
     newBoard.addFigure();
-    setBoard(newBoard);
-    setCurrentPlayer(whitePlayer);
+    store.setBoard(newBoard);
+    store.setCurrentPlayer(store.whitePlayer);
   }
 
   function swapPlayer() {
-    setCurrentPlayer(currentPlayer?.color === Colors.WHITE ? blackPlayer : whitePlayer);
+    store.setCurrentPlayer(store.currentPlayer?.color === Colors.WHITE ? store.blackPlayer : store.whitePlayer);
   }
 
   return (
     <div className="App">
-      <LostFigures
-        title="Черные фигуры"
-        figures={board.lostBlackFigures}
+      <Timer
+        restart={restart}
       />
-      <Board
-        board={board}
-        setBoard={setBoard}
-        swapPlayer={swapPlayer}
-        currentPlayer={currentPlayer}
-      />
-      <LostFigures
-        title="Белые фигуры"
-        figures={board.lostWhiteFigures}
-      />
+      <div>
+        <LostFigures
+          title="Black figures"
+          figures={store.board.lostBlackFigures}
+        />
+        <Board
+          swapPlayer={swapPlayer}
+        />
+        <LostFigures
+          title="White figures"
+          figures={store.board.lostWhiteFigures}
+        />
+      </div>
     </div>
   );
-}
+});
 
 export default App;

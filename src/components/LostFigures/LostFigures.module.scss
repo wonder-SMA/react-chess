@@ -1,5 +1,8 @@
 .lost {
+	width: 140px;
 	height: 663px;
+	display: flex;
+	flex-direction: column;
 	padding: 10px;
 	background-color: lightgray;
 	
@@ -7,6 +10,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-end;
+		margin-bottom: 2px;
 		
 		img {
 			width: 36px;
