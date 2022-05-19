@@ -4,11 +4,11 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border: 1px solid white;
 	
 	img {
-		width: 62px;
-		height: 62px;
-		position: relative;
+		width: 64px;
+		height: 64px;
 	}
 }
 
@@ -21,9 +21,8 @@
 }
 
 .selected, .available {
-	width: 62px;
-	height: 62px;
-	border: 1px solid white;
+	width: 64px;
+	height: 64px;
 }
 
 .selected {
