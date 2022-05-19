@@ -14,7 +14,8 @@ const LostFigures: React.FC<LostFiguresTypes> = ({ title, figures }) => {
       <h3>{title}</h3>
       {figures.map(((figure, index) =>
           <div key={figure.id}>
-            {index + 1}. {figure.name} {figure.logo && <img src={figure.logo} alt={`${figure.name} figure image`} />}
+            {index + 1}. {figure.name}
+            {figure.logo && <img src={figure.logo} alt={`${figure.name} figure in the list`} />}
           </div>
       ))}
     </div>
