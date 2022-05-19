@@ -1,0 +1,116 @@
+.App {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	h3 {
+		text-align: center;
+	}
+	
+	.edge {
+		position: relative;
+		margin: 0 20px;
+		border: 40px solid #d9c1a7;
+		
+		.abc, .num {
+			position: absolute;
+			display: flex;
+			justify-content: space-around;
+			
+			span {
+				font-size: 18px;
+			}
+		}
+		
+		.abc {
+			width: 518px;
+			justify-content: space-around;
+		}
+		
+		.num {
+			height: 518px;
+			flex-direction: column-reverse;
+		}
+		
+		.top {
+			top: -29px;
+		}
+		
+		.bottom {
+			bottom: -29px;
+		}
+		
+		.right {
+			right: -23px;
+		}
+		
+		.left {
+			top: 0;
+			left: -23px;
+		}
+		
+		.board {
+			width: calc(64px * 8);
+			height: calc(64px * 8);
+			display: flex;
+			flex-wrap: wrap;
+			border: 6px solid darkcyan;
+			
+			.cell {
+				width: 64px;
+				height: 64px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				
+				img {
+					width: 62px;
+					height: 62px;
+					position: relative;
+				}
+			}
+			
+			.Black {
+				background-color: #837360;
+			}
+			
+			.White {
+				background-color: navajowhite;
+			}
+			
+			.selected, .available {
+				width: 62px;
+				height: 62px;
+				border: 1px solid white;
+			}
+			
+			.selected {
+				background-color: brown;
+			}
+			
+			.available {
+				background-color: green;
+			}
+		}
+	}
+	
+	.lost {
+		height: 642px;
+		padding: 10px;
+		background-color: lightgray;
+		
+		div {
+			display: flex;
+			justify-content: space-between;
+			align-items: end;
+			
+			img {
+				width: 36px;
+				height: 36px;
+			}
+		}
+	}
+}
+

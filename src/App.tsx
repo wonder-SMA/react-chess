@@ -1,24 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
 
-function App() {
+import './App.scss';
+import Board from './components/Board';
+import LostFigures from './components/LostFigures';
+import BoardModel from './models/Board';
+import { Colors } from './models/Colors';
+import PlayerModel from './models/Player';
+
+
+const App: React.FC = () => {
+  const [board, setBoard] = useState(new BoardModel());
+  const [whitePlayer, setWhitePlayer] = useState(new PlayerModel(Colors.WHITE));
+  const [blackPlayer, setBlackPlayer] = useState(new PlayerModel(Colors.BLACK));
+  const [currentPlayer, setCurrentPlayer] = useState<PlayerModel | null>(null);
+
+  useEffect(() => {
+      restart();
+    }, []
+  );
+
+  function restart() {
+    const newBoard = new BoardModel();
+    newBoard.initCells();
+    newBoard.addFigure();
+    setBoard(newBoard);
+    setCurrentPlayer(whitePlayer);
+  }
+
+  function swapPlayer() {
+    setCurrentPlayer(currentPlayer?.color === Colors.WHITE ? blackPlayer : whitePlayer);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <LostFigures
+        title="Черные фигуры"
+        figures={board.lostBlackFigures}
+      />
+      <Board
+        board={board}
+        setBoard={setBoard}
+        swapPlayer={swapPlayer}
+        currentPlayer={currentPlayer}
+      />
+      <LostFigures
+        title="Белые фигуры"
+        figures={board.lostWhiteFigures}
+      />
     </div>
   );
 }
