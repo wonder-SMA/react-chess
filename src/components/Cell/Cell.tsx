@@ -13,7 +13,7 @@ type CellTypes = {
 const Cell: React.FC<CellTypes> = ({ cell, onClick, selected }) => {
 
   const mainClass = cn(classes.cell, {
-    [classes.black]: cell.color == 'Black',
+    [classes.black]: cell.color === 'Black',
     [classes.white]: cell.color === 'White',
     [classes.selected]: selected,
     [classes.available]: cell.available,
@@ -27,7 +27,7 @@ const Cell: React.FC<CellTypes> = ({ cell, onClick, selected }) => {
       {cell.figure?.logo &&
         <img
           src={cell.figure.logo}
-          alt={`${cell.figure.name} figure image`}
+          alt={`${cell.figure.name} figure on the board`}
           title={`${cell.figure.name} figure`}
         />
       }
