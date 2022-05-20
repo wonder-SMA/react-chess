@@ -36,6 +36,11 @@ class ChessStore {
     return this._whitePlayer;
   }
 
+  setInitialPlayer() {
+    this._whitePlayer = new PlayerModel(Colors.WHITE);
+    this._currentPlayer = this.whitePlayer;
+  }
+
   get blackPlayer(): PlayerModel {
     return this._blackPlayer;
   }

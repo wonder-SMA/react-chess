@@ -22,7 +22,7 @@ const App: React.FC = observer(() => {
     newBoard.initCells();
     newBoard.addFigure();
     store.setBoard(newBoard);
-    store.setCurrentPlayer(store.whitePlayer);
+    store.setInitialPlayer();
   }
 
   function swapPlayer() {

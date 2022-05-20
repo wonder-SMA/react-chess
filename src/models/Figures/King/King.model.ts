@@ -24,7 +24,18 @@ class KingModel extends FigureModel {
         || (Math.abs(target.x - this.cell.x) === 1
           && target.y - this.cell.y === 0))
       && target.figure?.name !== 'King') {
-      return true;
+      if (this.cell.board.lostBlackFigures.length + this.cell.board.lostWhiteFigures.length !== 30) {
+        for (let i = 0; i < this.cell.board.cells.length; i++) {
+          const row = this.cell.board.cells[i];
+          for (let j = 0; j < row.length; j++) {
+            const cell = row[j];
+            if (cell.figure?.color !== this.color && cell.figure?.canMove(target)) {
+              return false;
+            }
+          }
+        }
+        return true;
+      }
     }
     return false;
   }

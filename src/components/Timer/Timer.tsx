@@ -13,7 +13,8 @@ type TimerTypes = {
 const Timer: React.FC<TimerTypes> = observer(({ restart }) => {
   const store = useContext(StoreContext);
   const [blackTime, setBlackTime] = useState(300);
-  const [whiteTime, setWhiteTime] = useState(5);
+  const [whiteTime, setWhiteTime] = useState(300);
+  const [isOver, setIsOver] = useState(false);
   const timer = useRef<null | ReturnType<typeof setInterval>>(null);
 
   useEffect(() => {
@@ -24,9 +25,16 @@ const Timer: React.FC<TimerTypes> = observer(({ restart }) => {
     };
   }, [store.currentPlayer]);
 
+  useEffect(() => {
+    if (!blackTime || !whiteTime) {
+      alert('The player ' + String(store.currentPlayer?.color) + ' is lose!');
+    }
+  }, [isOver]);
+
   function checkTimer(time: number) {
     if (!time) {
       timer.current && clearInterval(timer.current);
+      setIsOver(true);
       return 0;
     }
     return time;
@@ -45,7 +53,7 @@ const Timer: React.FC<TimerTypes> = observer(({ restart }) => {
   }
 
   const handleRestart = () => {
-    setWhiteTime(5);
+    setWhiteTime(300);
     setBlackTime(300);
     restart();
   };
