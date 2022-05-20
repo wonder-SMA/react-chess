@@ -17,7 +17,8 @@ const Board: React.FC<BoardTypes> = observer(({ swapPlayer }) => {
 
   useEffect(() => {
     store.board.highlightCells(store.selectedCell);
-    updateBoard();
+    const newBoard = store.board.getCopyBoard();
+    store.setBoard(newBoard);
   }, [store.selectedCell]);
 
   function onClick(cell: CellModel) {
@@ -32,11 +33,6 @@ const Board: React.FC<BoardTypes> = observer(({ swapPlayer }) => {
     }
   }
 
-  function updateBoard() {
-    const newBoard = store.board.getCopyBoard();
-    store.setBoard(newBoard);
-  }
-
   return (
     <div>
       <h3>Current player: {store.currentPlayer?.color}</h3>
@@ -46,11 +42,12 @@ const Board: React.FC<BoardTypes> = observer(({ swapPlayer }) => {
         <div className={classes.board}>
           {store.board.cells.map((row, index) =>
             <React.Fragment key={index}>
-              {row.map(cell =>
+              {row.map((cell, index) =>
                 <Cell
-                  key={cell.id}
+                  key={index}
                   cell={cell}
                   onClick={onClick}
+                  selected={cell.x === store.selectedCell?.x && cell.y === store.selectedCell.y}
                 />
               )}
             </React.Fragment>

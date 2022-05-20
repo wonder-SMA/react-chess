@@ -47,7 +47,6 @@ class ChessStore {
   get currentPlayer(): PlayerModel | null {
     return this._currentPlayer;
   }
-
 }
 
 export default ChessStore;

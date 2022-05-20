@@ -1,25 +1,20 @@
-import React, { useContext } from 'react';
-import { observer } from 'mobx-react-lite';
+import React from 'react';
 import cn from 'classnames';
 
-import { StoreContext } from '../../index';
 import CellModel from '../../models/Cell';
 import classes from './Cell.module.scss';
 
 type CellTypes = {
   cell: CellModel;
   onClick: (cell: CellModel) => void;
+  selected: boolean;
 }
 
-const Cell: React.FC<CellTypes> = observer(({ cell, onClick }) => {
-  const store = useContext(StoreContext);
-
-  console.log('render from Cell');
-
+const Cell: React.FC<CellTypes> = ({ cell, onClick, selected }) => {
   const mainClass = cn(classes.cell, {
     [classes.black]: cell.color === 'Black',
     [classes.white]: cell.color === 'White',
-    [classes.selected]: cell.x === store.selectedCell?.x && cell.y === store.selectedCell?.y,
+    [classes.selected]: selected,
     [classes.available]: cell.available,
   });
 
@@ -37,6 +32,6 @@ const Cell: React.FC<CellTypes> = observer(({ cell, onClick }) => {
       }
     </div>
   );
-});
+};
 
 export default Cell;

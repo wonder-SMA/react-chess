@@ -1,5 +1,4 @@
 import CellModel from '../Cell';
-import Cell from '../Cell';
 import { Colors } from '../Colors';
 import Figure from '../Figure';
 import BishopModel from '../Figures/Bishop';
@@ -11,18 +10,18 @@ import RookModel from '../Figures/Rook';
 
 
 class BoardModel {
-  cells: Cell[][] = [];
+  cells: CellModel[][] = [];
   lostBlackFigures: Figure[] = [];
   lostWhiteFigures: Figure[] = [];
 
   public initCells() {
     for (let i = 0; i < 8; i++) {
-      const row: Cell[] = [];
+      const row: CellModel[] = [];
       for (let j = 0; j < 8; j++) {
         if ((i + j) % 2 !== 0) {
-          row.push(new Cell(this, j, i, Colors.BLACK, null)); // black cells
+          row.push(new CellModel(this, j, i, Colors.BLACK, null)); // black cells
         } else {
-          row.push(new Cell(this, j, i, Colors.WHITE, null)); // white cells
+          row.push(new CellModel(this, j, i, Colors.WHITE, null)); // white cells
         }
       }
       this.cells.push(row);

@@ -9,7 +9,6 @@ class CellModel {
   figure: FigureModel | null;
   board: BoardModel;
   available: boolean; // is movable?
-  id: number; // for react keys
 
   constructor(board: BoardModel, x: number, y: number, color: Colors, figure: FigureModel | null) {
     this.board = board;
@@ -18,7 +17,6 @@ class CellModel {
     this.color = color;
     this.figure = figure;
     this.available = false;
-    this.id = Math.random();
   }
 
   isEmpty(): boolean {

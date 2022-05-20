@@ -1,6 +1,4 @@
-// @ts-ignore
 import blackLogo from '../../../assets/black-figures/king.png';
-// @ts-ignore
 import whiteLogo from '../../../assets/white-figures/king.png';
 import CellModel from '../../Cell';
 import { Colors } from '../../Colors';
@@ -19,7 +17,16 @@ class KingModel extends FigureModel {
     if (!super.canMove(target)) {
       return false;
     }
-    return true;
+    if (((Math.abs(target.y - this.cell.y) === 1
+          && Math.abs(target.x - this.cell.x) === 1)
+        || (Math.abs(target.y - this.cell.y) === 1
+          && target.x - this.cell.x === 0)
+        || (Math.abs(target.x - this.cell.x) === 1
+          && target.y - this.cell.y === 0))
+      && target.figure?.name !== 'King') {
+      return true;
+    }
+    return false;
   }
 }
 

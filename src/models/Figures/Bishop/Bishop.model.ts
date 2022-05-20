@@ -1,6 +1,4 @@
-// @ts-ignore
 import blackLogo from '../../../assets/black-figures/bishop.png';
-// @ts-ignore
 import whiteLogo from '../../../assets/white-figures/bishop.png';
 import CellModel from '../../Cell';
 import { Colors } from '../../Colors';

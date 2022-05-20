@@ -52,11 +52,11 @@ const Timer: React.FC<TimerTypes> = observer(({ restart }) => {
 
   return (
     <div className={classes.timer}>
-      <h3>Timer - {blackTime} s.</h3>
+      <h3>Timer: {blackTime} s.</h3>
       <button onClick={handleRestart}>
         Restart game
       </button>
-      <h3>Timer - {whiteTime} s.</h3>
+      <h3>Timer: {whiteTime} s.</h3>
     </div>
   );
 });

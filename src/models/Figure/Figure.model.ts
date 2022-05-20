@@ -1,6 +1,5 @@
 import CellModel from '../Cell';
 import { Colors } from '../Colors';
-// @ts-ignore
 import logo from '../../assets/black-figures/king.png';
 
 export enum FigureNames {
@@ -18,13 +17,11 @@ class FigureModel {
   cell: CellModel;
   logo: typeof logo | null = null;
   name: FigureNames = FigureNames.FIGURE;
-  id: number;
 
   constructor(color: Colors, cell: CellModel) {
     this.color = color;
     this.cell = cell;
     this.cell.figure = this;
-    this.id = Math.random();
   }
 
   canMove(target: CellModel): boolean {
