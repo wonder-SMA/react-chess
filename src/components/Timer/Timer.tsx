@@ -26,10 +26,11 @@ const Timer: React.FC<TimerTypes> = observer(({ restart }) => {
   }, [store.currentPlayer]);
 
   useEffect(() => {
-    if (!blackTime || !whiteTime) {
-      confirm('The ' + String(store.currentPlayer?.color) + ' player has lost!') && restart();
+    if (isOver) {
+      alert('The ' + String(store.currentPlayer?.color) + ' player has lost!');
     }
-  }, [isOver]);
+    (store.isInCheckmate || isOver) && timer.current && clearInterval(timer.current);
+  }, [isOver, store.isInCheckmate]);
 
   function checkTimer(time: number) {
     if (!time) {

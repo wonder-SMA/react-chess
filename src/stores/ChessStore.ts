@@ -14,6 +14,7 @@ class ChessStore {
   _whiteKingCell: CellModel | null = null;
   _blackKingCell: CellModel | null = null;
   _isInCheck: boolean = false;
+  _isInCheckmate: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -78,6 +79,14 @@ class ChessStore {
 
   setIsInCheck(isInCheck: boolean) {
     this._isInCheck = isInCheck;
+  }
+
+  get isInCheckmate(): boolean {
+    return this._isInCheckmate;
+  }
+
+  setIsInCheckmate(isInCheckmate: boolean) {
+    this._isInCheckmate = isInCheckmate;
   }
 }
 

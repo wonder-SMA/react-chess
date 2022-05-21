@@ -19,13 +19,19 @@ const App: React.FC = observer(() => {
   );
 
   useEffect(() => {
+      store.isInCheck && store.setIsInCheck(false);
       const isInCheck = store.currentPlayer?.color === Colors.WHITE
         ? checkForIsInCheck(store.whiteKingCell) : checkForIsInCheck(store.blackKingCell);
-      store.setIsInCheck(isInCheck);
-      if (isInCheck && store.currentPlayer?.color === Colors.WHITE) {
-        alert('The White King is in check!');
-      } else if (isInCheck && store.currentPlayer?.color === Colors.BLACK) {
-        alert('The Black King is in check!');
+      if (isInCheck) {
+        store.setIsInCheck(true);
+        const isInCheckmate = store.currentPlayer?.color === Colors.WHITE
+          ? checkForIsInCheckmate(store.whiteKingCell) : checkForIsInCheckmate(store.blackKingCell);
+        if (isInCheckmate) {
+          alert('The ' + String(store.currentPlayer?.color) + ' player has lost!');
+          store.setIsInCheckmate(true);
+        } else {
+          alert('The ' + String(store.currentPlayer?.color) + ' King is in check!');
+        }
       }
     }, [store.currentPlayer]
   );
@@ -57,6 +63,19 @@ const App: React.FC = observer(() => {
       }
     }
     return false;
+  }
+
+  function checkForIsInCheckmate(kingCell: CellModel | null) {
+    for (let i = 0; i < store.board.cells.length; i++) {
+      const row = store.board.cells[i];
+      for (let j = 0; j < row.length; j++) {
+        const target = row[j];
+        if (kingCell?.figure?.canMove(target)) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   return (
