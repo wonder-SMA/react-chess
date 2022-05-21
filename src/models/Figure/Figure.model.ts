@@ -24,14 +24,8 @@ class FigureModel {
     this.cell.figure = this;
   }
 
-  canMove(target: CellModel): boolean {
-    if (target.figure?.color === this.color) {
-      return false;
-    }
-    if (target.figure?.name === FigureNames.KING) {
-      return false;
-    }
-    return true;
+  canMove(target: CellModel | null): boolean {
+    return target?.figure?.color !== this.color;
   }
 
   moveFigure(target: CellModel) {}

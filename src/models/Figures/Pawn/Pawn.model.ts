@@ -29,8 +29,15 @@ class PawnModel extends FigureModel {
     if (target.y === this.cell.y + direction
       && (target.x === this.cell.x + 1
         || target.x === this.cell.x - 1)
-      && this.cell.isEnemy(target)) {
+      && this.isEnemy(target)) {
       return true;
+    }
+    return false;
+  }
+
+  isEnemy(target: CellModel): boolean {
+    if (target.figure) {
+      return this.color !== target.figure.color;
     }
     return false;
   }

@@ -27,7 +27,7 @@ const Timer: React.FC<TimerTypes> = observer(({ restart }) => {
 
   useEffect(() => {
     if (!blackTime || !whiteTime) {
-      alert('The player ' + String(store.currentPlayer?.color) + ' is lose!');
+      confirm('The ' + String(store.currentPlayer?.color) + ' player has lost!') && restart();
     }
   }, [isOver]);
 

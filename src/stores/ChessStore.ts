@@ -10,7 +10,10 @@ class ChessStore {
   _selectedCell: CellModel | null = null;
   _whitePlayer: PlayerModel = new PlayerModel(Colors.WHITE);
   _blackPlayer: PlayerModel = new PlayerModel(Colors.BLACK);
-  _currentPlayer: PlayerModel | null = null;
+  _currentPlayer: PlayerModel = new PlayerModel(Colors.WHITE);
+  _whiteKingCell: CellModel | null = null;
+  _blackKingCell: CellModel | null = null;
+  _isInCheck: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -45,12 +48,36 @@ class ChessStore {
     return this._blackPlayer;
   }
 
-  setCurrentPlayer(player: PlayerModel | null) {
+  setCurrentPlayer(player: PlayerModel) {
     this._currentPlayer = player;
   }
 
   get currentPlayer(): PlayerModel | null {
     return this._currentPlayer;
+  }
+
+  setWhiteKingCell(cell: CellModel) {
+    this._whiteKingCell = cell;
+  }
+
+  get whiteKingCell(): CellModel | null {
+    return this._whiteKingCell;
+  }
+
+  setBlackKingCell(cell: CellModel) {
+    this._blackKingCell = cell;
+  }
+
+  get blackKingCell(): CellModel | null {
+    return this._blackKingCell;
+  }
+
+  get isInCheck(): boolean {
+    return this._isInCheck;
+  }
+
+  setIsInCheck(isInCheck: boolean) {
+    this._isInCheck = isInCheck;
   }
 }
 

@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 
 import { StoreContext } from '../../index';
 import CellModel from '../../models/Cell';
+import { Colors } from '../../models/Colors';
 import Cell from '../Cell';
 import Characters from '../Characters';
 import Numbers from '../Numbers';
@@ -23,6 +24,19 @@ const Board: React.FC<BoardTypes> = observer(({ swapPlayer }) => {
 
   function onClick(cell: CellModel) {
     if (store.selectedCell && store.selectedCell !== cell && store.selectedCell.figure?.canMove(cell)) {
+      if (store.selectedCell.figure?.name === 'King' && store.selectedCell.figure.color === Colors.WHITE) {
+        store.setWhiteKingCell(cell);
+      } else if (store.selectedCell.figure?.name === 'King' && store.selectedCell.figure.color === Colors.BLACK) {
+        store.setBlackKingCell(cell);
+      }
+      if (cell.figure?.name === 'King') {
+        return false;
+      }
+      if (store.isInCheck && store.selectedCell.figure?.name !== 'King') {
+        store.setSelectedCell(store.currentPlayer?.color === Colors.WHITE ? store.whiteKingCell : store.blackKingCell);
+        alert('The ' + String(store.currentPlayer?.color) + ' King is in check!');
+        return false;
+      }
       store.selectedCell.moveFigure(cell);
       store.setSelectedCell(null);
       swapPlayer();
